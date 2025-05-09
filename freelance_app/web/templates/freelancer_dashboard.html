@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ session['user_id'] }} (Freelancer)</h1>
+        <nav>
+            <ul>
+                <li><a href="/api/auth/logout">Logout</a></li>
+                <li><a href="/freelancer/jobs">View Available Jobs</a></li>
+                <li><a href="/freelancer/offers">View Your Offers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Available Jobs</h2>
+            <!-- Here you can dynamically list the jobs available for freelancers -->
+            <ul>
+                <li>Job 1 - Description</li>
+                <li>Job 2 - Description</li>
+                <li>Job 3 - Description</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Your Offers</h2>
+            <!-- List the offers submitted by the freelancer -->
+            <ul>
+                <li>Offer for Job 1</li>
+                <li>Offer for Job 2</li>
+                <li>Offer for Job 3</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

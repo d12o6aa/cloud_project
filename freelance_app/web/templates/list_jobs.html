@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Jobs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        .job { border: 1px solid #ccc; padding: 20px; margin-bottom: 15px; border-radius: 5px; }
+        .job h2 { margin: 0 0 10px; }
+        .job p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Available Jobs</h1>
+    {% if jobs %}
+        {% for job in jobs %}
+            <div class="job">
+                <h2>{{ job.title }}</h2>
+                <p><strong>Description:</strong> {{ job.description }}</p>
+                <p><strong>Budget:</strong> ${{ job.budget }}</p>
+                <p><strong>Deadline:</strong> {{ job.deadline }}</p>
+                <p><strong>Status:</strong> {{ job.status }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No jobs available.</p>
+    {% endif %}
+</body>
+</html>
