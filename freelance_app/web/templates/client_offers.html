@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Offers</title>
+</head>
+<body>
+    <h1>Your Job Offers</h1>
+    <nav>
+        <a href="/api/auth/client/jobs">View Jobs</a> |
+        <a href="/api/auth/logout">Logout</a>
+    </nav>
+
+    <h2>Offers</h2>
+    {% if offers %}
+        <ul>
+            {% for offer in offers %}
+                <li>
+                    <strong>Job:</strong> {{ offer.job_title }}<br>
+                    <strong>From:</strong> Freelancer #{{ offer.freelancer_id }}<br>
+                    <strong>Amount:</strong> ${{ offer.amount }}<br>
+                    <strong>Message:</strong> {{ offer.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No offers have been made on your jobs yet.</p>
+    {% endif %}
+</body>
+</html>

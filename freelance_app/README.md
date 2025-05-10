@@ -30,4 +30,15 @@ http://127.0.0.1:5000/api/auth/freelancer/jobs
 http://127.0.0.1:5000/api/auth/create_job
 http://127.0.0.1:5000/api/auth/create
 http://127.0.0.1:5000/api/auth/list_jobs
+http://127.0.0.1:5000/api/auth/offers
+http://127.0.0.1:5000/api/auth/client/offers
 http://127.0.0.1:5000/api/auth/
+http://127.0.0.1:5000/api/auth/
+http://127.0.0.1:5000/api/auth/
+
+
+http://127.0.0.1:5000/client/dashboard
+http://127.0.0.1:5000/freelancer/dashboard
+http://127.0.0.1:5000/client/jobs
+http://127.0.0.1:5000/client/offers
+http://127.0.0.1:5000/freelancer/dashboard

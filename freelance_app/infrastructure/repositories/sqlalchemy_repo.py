@@ -8,6 +8,7 @@ from infrastructure.models.job_model import JobModel
 from app.domain.models import Offer
 from app.domain.interfaces import OfferRepository
 from infrastructure.models.offer_model import OfferModel
+from typing import List
 
 class SQLAlchemyUserRepo(UserRepository):
     def get_by_email(self, email: str) -> User | None:
@@ -23,6 +24,9 @@ class SQLAlchemyUserRepo(UserRepository):
             )
         return None
 
+    def find_by_email(self, email):
+        return User.query.filter_by(email=email).first()
+    
     def save(self, user: User) -> User:
         db = SessionLocal()
         db_user = UserModel(
@@ -35,7 +39,14 @@ class SQLAlchemyUserRepo(UserRepository):
         db.commit()
         db.refresh(db_user)
         db.close()
-        return user
+        return User(
+            id=db_user.id,
+            name=db_user.name,
+            email=db_user.email,
+            password=db_user.password,
+            role=db_user.role
+        )
+
     
     def create(self, user: User) -> User:
         db = SessionLocal()
@@ -54,7 +65,13 @@ class SQLAlchemyUserRepo(UserRepository):
         db.commit()
         db.refresh(db_user)
         db.close()
-        return user
+        return User(
+            id=db_user.id,
+            name=db_user.name,
+            email=db_user.email,
+            password=db_user.password,
+            role=db_user.role
+        )
 
 
 class SQLAlchemyJobRepo(JobRepository):
@@ -89,6 +106,23 @@ class SQLAlchemyJobRepo(JobRepository):
         job.id = db_job.id
         return job
 
+    def list_jobs_by_client(self, client_id: int) -> List[Job]:
+        db = SessionLocal()
+        jobs = db.query(JobModel).filter_by(client_id=client_id).all()
+        db.close()
+        return [
+            Job(
+                id=job.id,
+                title=job.title,
+                description=job.description,
+                budget=job.budget,
+                deadline=job.deadline,
+                client_id=job.client_id,
+                status=job.status
+            )
+            for job in jobs
+        ]
+
 
 
 class SQLAlchemyOfferRepo(OfferRepository):
@@ -120,3 +154,47 @@ class SQLAlchemyOfferRepo(OfferRepository):
             message=offer.message,
             status=offer.status
         ) for offer in offers]
+        
+    def list_offers_by_client_jobs(self, client_id: int) -> List[Offer]:
+        db = SessionLocal()
+        offers = (
+            db.query(OfferModel)
+            .join(JobModel, OfferModel.job_id == JobModel.id)
+            .filter(JobModel.client_id == client_id)
+            .all()
+        )
+        db.close()
+        return [
+            Offer(
+                id=o.id,
+                job_id=o.job_id,
+                freelancer_id=o.freelancer_id,
+                amount=o.amount,
+                message=o.message,
+                status=o.status
+            )
+            for o in offers
+        ]
+    
+    def get_by_freelancer_id(self, freelancer_id):
+        db = SessionLocal()
+        offers = db.query(OfferModel).filter_by(freelancer_id=freelancer_id).all()
+        db.close()
+        return offers
+    
+    def get_offers_by_freelancer(self, freelancer_id):
+        db = SessionLocal()
+        offer_models = db.query(OfferModel).filter_by(freelancer_id=freelancer_id).all()
+        db.close()
+        return [
+            Offer(
+                id=o.id,
+                job_id=o.job_id,
+                freelancer_id=o.freelancer_id,
+                amount=o.amount,
+                message=o.message,
+                status=o.status
+            )
+            for o in offer_models
+        ]
+

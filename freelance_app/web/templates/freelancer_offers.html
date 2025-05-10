@@ -1,0 +1,11 @@
+<h2>Available Jobs</h2>
+<ul>
+  {% for job in jobs %}
+    <li>
+      <h3>{{ job.title }}</h3>
+      <p>{{ job.description }}</p>
+      <p><strong>Budget:</strong> {{ job.budget }}</p>
+      <a href="{{ url_for('freelancer.create_offer', job_id=job.id) }}">Submit an Offer</a>
+    </li>
+  {% endfor %}
+</ul>

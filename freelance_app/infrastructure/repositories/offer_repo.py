@@ -19,3 +19,6 @@ class SQLAlchemyOfferRepo(OfferRepository):
         db.close()
         offer.id = db_offer.id
         return offer
+
+    def get_offers_by_freelancer(self, freelancer_id):
+        return Offer.query.filter_by(freelancer_id=freelancer_id).all()

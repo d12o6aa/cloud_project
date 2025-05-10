@@ -9,6 +9,8 @@ from web.routes.job_routes import job_bp
 from web.routes.offer_routes import offer_bp   
 from web.routes.home_routes import home_bp
 from web.routes.main_routes import main_bp
+from web.routes.client_routes import client_bp
+from web.routes.freelance_routes import freelance_bp
 
 load_dotenv()
 
@@ -20,6 +22,9 @@ app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(job_bp, url_prefix="/jobs")
 app.register_blueprint(offer_bp, url_prefix="/offers")
+app.register_blueprint(client_bp, url_prefix='/client')
+app.register_blueprint(freelance_bp, url_prefix="/freelancer")
+
 app.register_blueprint(main_bp)
 if __name__ == "__main__":
     app.run(debug=True)

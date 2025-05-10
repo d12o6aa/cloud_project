@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Jobs</title>
+</head>
+<body>
+    <h1>Welcome, Client</h1>
+    <nav>
+        <a href="/api/auth/client/offers">View Offers</a> |
+        <a href="/api/auth/logout">Logout</a>
+    </nav>
+
+    <h2>Your Posted Jobs</h2>
+    {% if jobs %}
+        <ul>
+            {% for job in jobs %}
+                <li>
+                    <strong>{{ job.title }}</strong> - {{ job.description }} (Budget: ${{ job.budget }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't posted any jobs yet.</p>
+    {% endif %}
+</body>
+</html>

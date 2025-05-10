@@ -4,11 +4,11 @@ from datetime import datetime
 
 @dataclass
 class User:
-    id: Optional[int] = None
+    id: int | None = None
     name: str = ""
     email: str = ""
     password: str = ""
-    role: str = ""  # "client" or "freelancer"
+    role: str = ""
 
 @dataclass
 class Job:
