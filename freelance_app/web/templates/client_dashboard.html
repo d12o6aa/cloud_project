@@ -1,43 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Dashboard</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome, {{ session['user_id'] }} (Client)</h1>
-        <nav>
-            <ul>
-                <li><a href="/api/auth/logout">Logout</a></li>
-                <li><a href="{{ url_for('client.create_job') }}">Post Job</a></li>
-                <li><a href="{{ url_for('client.client_jobs') }}">View Jobs</a></li>
-                <li><a href="{{ url_for('client.client_offers') }}">View Offers</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section>
-            <h2>Your Open Jobs</h2>
-            <!-- Here you can dynamically list the jobs related to the client -->
-            <ul>
-                <li>Job 1 - Description</li>
-                <li>Job 2 - Description</li>
-                <li>Job 3 - Description</li>
-            </ul>
-        </section>
+{% extends "layout.html" %}
+{% block title %}Client Dashboard{% endblock %}
+{% block content %}
 
-        <section>
-            <h2>Your Offers</h2>
-            <!-- List offers related to the client -->
-            <ul>
-                <li>Offer from Freelancer 1</li>
-                <li>Offer from Freelancer 2</li>
-                <li>Offer from Freelancer 3</li>
-            </ul>
-        </section>
-    </main>
-</body>
-</html>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Welcome, {{ session['user_id'] }} (Client)</h1>
+        <a href="/api/auth/logout" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <nav class="mb-4">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('client.create_job') }}">Post Job</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('client.client_offers') }}">View Offers</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Your Open Jobs</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Job 1 - Description</li>
+                    <li class="list-group-item">Job 2 - Description</li>
+                    <li class="list-group-item">Job 3 - Description</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Your Offers</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Offer from Freelancer 1</li>
+                    <li class="list-group-item">Offer from Freelancer 2</li>
+                    <li class="list-group-item">Offer from Freelancer 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

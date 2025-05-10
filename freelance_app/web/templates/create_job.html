@@ -1,9 +1,31 @@
-<form method="post">
-  <input name="title" placeholder="Title" required><br>
-  <textarea name="description" placeholder="Description" required></textarea><br>
-  <input name="budget" placeholder="Budget" type="number" required><br>
-  <input name="deadline" placeholder="Deadline" type="date" required><br>
-  <button type="submit">Post Job</button>
+{% extends "layout.html" %}
+{% block title %}Post a Job{% endblock %}
+{% block content %}
+
+<h2 class="mb-4 text-center">Post a New Job</h2>
+
+<form method="post" class="w-75 mx-auto shadow-sm p-4 rounded bg-light">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input name="title" id="title" class="form-control" placeholder="Enter job title" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea name="description" id="description" class="form-control" placeholder="Enter job description" rows="4" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="budget" class="form-label">Budget ($)</label>
+    <input name="budget" id="budget" type="number" class="form-control" placeholder="Enter budget" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="deadline" class="form-label">Deadline</label>
+    <input name="deadline" id="deadline" type="date" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100">Post Job</button>
 </form>
 
-  
+{% endblock %}

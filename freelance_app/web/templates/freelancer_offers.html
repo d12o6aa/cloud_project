@@ -1,11 +1,23 @@
-<h2>Available Jobs</h2>
-<ul>
-  {% for job in jobs %}
-    <li>
-      <h3>{{ job.title }}</h3>
-      <p>{{ job.description }}</p>
-      <p><strong>Budget:</strong> {{ job.budget }}</p>
-      <a href="{{ url_for('freelancer.create_offer', job_id=job.id) }}">Submit an Offer</a>
-    </li>
+{% extends "layout.html" %}
+{% block content %}
+<h2>My Job Offers</h2>
+<div class="container">
+  {% for offer in offers %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ offer.job_title }}</h5>
+        <p class="card-text">Proposal: {{ offer.proposal }}</p>
+        <p>Status: 
+          {% if offer.status == 'pending' %}
+            ⏳ Pending
+          {% elif offer.status == 'accepted' %}
+            ✅ Accepted
+          {% elif offer.status == 'rejected' %}
+            ❌ Rejected
+          {% endif %}
+        </p>
+      </div>
+    </div>
   {% endfor %}
-</ul>
+</div>
+{% endblock %}

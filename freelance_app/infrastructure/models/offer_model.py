@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, Float, String, ForeignKey
+from sqlalchemy.orm import relationship
 from infrastructure.db.database import Base
 
 class OfferModel(Base):
@@ -10,3 +11,4 @@ class OfferModel(Base):
     amount = Column(Float)
     message = Column(String)
     status = Column(String, default="pending")
+    job = relationship("JobModel", backref="offers")

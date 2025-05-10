@@ -1,24 +1,81 @@
-<!-- templates/freelancer_jobs.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Available Jobs</title>
-</head>
-<body>
-    <h1>Available Jobs</h1>
-    <a href="{{ url_for('freelancer.freelancer_dashboard') }}">Back to Dashboard</a>
-    <ul>
-        {% for job in jobs %}
-            <li>
-                <h3>{{ job.title }}</h3>
-                <p>{{ job.description }}</p>
-                <p>Budget: ${{ job.budget }}</p>
-                <p>Deadline: {{ job.deadline }}</p>
-                <a href="{{ url_for('freelancer.create_offer', job_id=job.id) }}">Submit Offer</a>
-            </li>
-        {% else %}
-            <li>No available jobs at the moment.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Job Listings{% endblock %}
+{% block content %}
+
+<h2 class="mb-4 text-center">Available Jobs</h2>
+
+<!-- Filter Form -->
+<form method="get" action="" class="mb-4 d-flex justify-content-end">
+  <div class="input-group w-auto">
+    <select class="form-select" name="status">
+      <option value="">All</option>
+      <option value="open" {% if status_filter == 'open' %}selected{% endif %}>Open</option>
+      <option value="closed" {% if status_filter == 'closed' %}selected{% endif %}>Closed</option>
+    </select>
+    <button class="btn btn-outline-primary" type="submit">Filter</button>
+  </div>
+</form>
+
+<div class="row">
+  {% for job in jobs %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ job.title }}</h5>
+        <p class="card-text">{{ job.description[:100] }}{% if job.description|length > 100 %}...{% endif %}</p>
+        <p><strong>Budget:</strong> ${{ job.budget }}</p>
+        <p><strong>Deadline:</strong> {{ job.deadline.strftime('%Y-%m-%d') }}</p>
+        <p><strong>Status:</strong>
+          {% if job.status == "open" %}
+            <span class="badge bg-success">Open</span>
+          {% elif job.status == "closed" %}
+            <span class="badge bg-danger">Closed</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ job.status }}</span>
+          {% endif %}
+        </p>
+        <div class="mt-auto">
+          <button type="button" class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#jobModal{{ job.id }}">
+            View & Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="jobModal{{ job.id }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ job.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ job.description }}</p>
+          <p><strong>Budget:</strong> ${{ job.budget }}</p>
+          <p><strong>Deadline:</strong> {{ job.deadline.strftime('%Y-%m-%d') }}</p>
+          <p><strong>Status:</strong> {{ job.status }}</p>
+          {% if job.status == 'open' %}
+          <form method="POST" action="{{ url_for('freelancer.apply_to_job', job_id=job.id) }}">
+            <div class="mb-3">
+              <label for="amount{{ job.id }}" class="form-label">Offer Amount</label>
+              <input type="number" name="amount" class="form-control" id="amount{{ job.id }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="message{{ job.id }}" class="form-label">Message</label>
+              <textarea name="message" class="form-control" id="message{{ job.id }}" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit Offer</button>
+          </form>
+          {% else %}
+            <div class="alert alert-warning text-center">This job is closed.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

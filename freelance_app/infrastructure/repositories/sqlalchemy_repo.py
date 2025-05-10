@@ -122,7 +122,30 @@ class SQLAlchemyJobRepo(JobRepository):
             )
             for job in jobs
         ]
-
+    def list_jobs_by_client_and_status(self, client_id: int, status: str) -> List[Job]:
+        db = SessionLocal()
+        jobs = db.query(JobModel).filter_by(client_id=client_id, status=status).all()
+        db.close()
+        return [
+            Job(
+                id=job.id,
+                title=job.title,
+                description=job.description,
+                budget=job.budget,
+                deadline=job.deadline,
+                client_id=job.client_id,
+                status=job.status
+            )
+            for job in jobs
+        ]
+        
+    def update_status(self, job_id: int, status: str):
+        db = SessionLocal()
+        job = db.query(JobModel).filter_by(id=job_id).first()
+        if job:
+            job.status = status
+            db.commit()
+        db.close()
 
 
 class SQLAlchemyOfferRepo(OfferRepository):
@@ -142,6 +165,28 @@ class SQLAlchemyOfferRepo(OfferRepository):
         offer.id = db_offer.id
         return offer
 
+    def list_by_freelancer(self, freelancer_id: int) -> List[Offer]:
+        db = SessionLocal()
+        offers = (
+            db.query(OfferModel)
+            .filter_by(freelancer_id=freelancer_id)
+            .join(JobModel)
+            .all()
+        )
+        result = []
+        for offer in offers:
+            result.append(Offer(
+                id=offer.id,
+                job_id=offer.job_id,
+                job_title=offer.job.title,
+                amount=offer.amount,
+                message=offer.message,
+                freelancer_id=offer.freelancer_id,
+                status=offer.status
+            ))
+        db.close()
+        return result
+ 
     def list_by_job(self, job_id: int) -> list[Offer]:
         db = SessionLocal()
         offers = db.query(OfferModel).filter_by(job_id=job_id).all()
@@ -175,7 +220,27 @@ class SQLAlchemyOfferRepo(OfferRepository):
             )
             for o in offers
         ]
-    
+    def get_by_id(self, offer_id: int) -> Offer:
+        db = SessionLocal()
+        offer = db.query(OfferModel).filter_by(id=offer_id).first()
+        result = Offer(
+            id=offer.id,
+            job_id=offer.job_id,
+            freelancer_id=offer.freelancer_id,
+            amount=offer.amount,
+            message=offer.message,
+            status=offer.status
+        )
+        db.close()
+        return result
+    def update_offer_status(self, offer_id: int, status: str):
+        db = SessionLocal()
+        offer = db.query(OfferModel).filter_by(id=offer_id).first()
+        if offer:
+            offer.status = status
+            db.commit()
+        db.close()
+
     def get_by_freelancer_id(self, freelancer_id):
         db = SessionLocal()
         offers = db.query(OfferModel).filter_by(freelancer_id=freelancer_id).all()
@@ -197,4 +262,13 @@ class SQLAlchemyOfferRepo(OfferRepository):
             )
             for o in offer_models
         ]
+        
+    def update_status(self, offer_id: int, status: str):
+        db = SessionLocal()
+        offer = db.query(OfferModel).filter_by(id=offer_id).first()
+        if offer:
+            offer.status = status
+            db.commit()
+        db.close()
+
 

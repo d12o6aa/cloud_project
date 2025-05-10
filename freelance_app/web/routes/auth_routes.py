@@ -68,7 +68,7 @@ def client_dashboard():
         return redirect(url_for('auth.auth_login'))
     return render_template("client_dashboard.html")
 
-@auth_bp.route("/freelancer/dashboard")
+@auth_bp.route("/freelancer_dashboard")
 def freelancer_dashboard():
     if 'user_id' not in session or session['role'] != 'freelancer':
         return redirect(url_for('auth.auth_login'))

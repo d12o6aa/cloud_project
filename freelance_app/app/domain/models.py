@@ -28,3 +28,4 @@ class Offer:
     amount: float = 0.0
     message: str = ""
     status: str = "pending"
+    job_title: Optional[str] = None

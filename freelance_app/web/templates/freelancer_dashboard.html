@@ -1,42 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelancer Dashboard</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome, {{ session['user_id'] }} (Freelancer)</h1>
-        <nav>
-            <ul>
-                <li><a href="/api/auth/logout">Logout</a></li>
-                <li><a href="/freelancer/jobs">View Available Jobs</a></li>
-                </li>
-            </ul>
-        </nav>
-    </header>
+{% extends "layout.html" %}
+{% block title %}Freelancer Dashboard{% endblock %}
+{% block content %}
 
-    <main>
-        <section>
-            <h2>Available Jobs</h2>
-            <!-- Here you can dynamically list the jobs available for freelancers -->
-            <ul>
-                <li>Job 1 - Description</li>
-                <li>Job 2 - Description</li>
-                <li>Job 3 - Description</li>
-            </ul>
-        </section>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Welcome, {{ session['user_id'] }} (Freelancer)</h1>
+        <a href="/api/auth/logout" class="btn btn-outline-danger">Logout</a>
+    </div>
 
-        <section>
-            <h2>Your Offers</h2>
-            <!-- List the offers submitted by the freelancer -->
-            <ul>
-                <li>Offer for Job 1</li>
-                <li>Offer for Job 2</li>
-                <li>Offer for Job 3</li>
-            </ul>
-        </section>
-    </main>
-</body>
-</html>
+    <nav class="mb-4">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="/freelancer/my_offers">My Offers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/freelancer/jobs">View Available Jobs</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Available Jobs</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Job 1 - Description</li>
+                    <li class="list-group-item">Job 2 - Description</li>
+                    <li class="list-group-item">Job 3 - Description</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Your Offers</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Offer for Job 1</li>
+                    <li class="list-group-item">Offer for Job 2</li>
+                    <li class="list-group-item">Offer for Job 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
