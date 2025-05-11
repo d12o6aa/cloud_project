@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Freelance Platform - Home</title>
-</head>
-<body>
-    <h1>Welcome to the Freelance Platform</h1>
-    <p><a href="/api/auth/register">Register</a> | <a href="/api/auth/login">Login</a></p>
-    <p><a href="/jobs/create">Post a Job</a> | <a href="/offers/create">Send an Offer</a></p>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Home - Freelance Platform{% endblock %}
+{% block content %}
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 mb-4">Welcome to the Freelance Platform</h1>
+    <p class="lead mb-4">Connect clients with freelancers easily and efficiently.</p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="/api/auth/register" class="btn btn-primary btn-lg">Register</a>
+        <a href="/api/auth/login" class="btn btn-outline-primary btn-lg">Login</a>
+    </div>
+</div>
+
+{% endblock %}
