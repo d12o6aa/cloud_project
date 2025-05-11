@@ -1,12 +1,15 @@
-<h2>Create Offer for Job {{ job_id }}</h2>
-<form method="POST">
-  <div>
-    <label for="amount">Amount</label>
-    <input type="text" name="amount" required>
+<link href="/static/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+
+<h2 class="mb-4 text-center">Create Offer for Job {{ job_id }}</h2>
+<form method="POST" class="w-75 mx-auto shadow-sm p-4 rounded bg-light">
+  <div class="mb-3">
+    <label for="amount" class="form-label">Amount</label>
+    <input type="text" name="amount" id="amount" class="form-control" required>
   </div>
-  <div>
-    <label for="message">Message</label>
-    <textarea name="message" required></textarea>
+  <div class="mb-3">
+    <label for="message" class="form-label">Message</label>
+    <textarea name="message" id="message" class="form-control" rows="4" required></textarea>
   </div>
-  <button type="submit">Submit Offer</button>
+  <button type="submit" class="btn btn-success w-100">Submit Offer</button>
 </form>

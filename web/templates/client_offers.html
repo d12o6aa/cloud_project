@@ -1,55 +1,56 @@
-{% extends "layout.html" %}
+<link href="/static/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+<!-- {% extends "layout.html" %}
 {% block title %}Job Offers{% endblock %}
-{% block content %}
+{% block content %} -->
 
-<h2 class="mb-4 text-center">Offers on Your Jobs</h2>
+<h2 class="my-4 text-center">Offers on Your Jobs</h2>
 
-{% if offers %}
-<div class="row">
-  {% for offer in offers %}
-  <div class="col-md-6 col-lg-4 mb-4">
+<!-- {% if offers %} -->
+<div class="row mx-auto">
+  <!-- {% for offer in offers %} -->
+  <div class="col-md-6 col-lg-4 mb-4 mx-auto">
     <div class="card h-100 shadow-sm">
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ offer.job_title }}</h5>
+        <!-- <h5 class="card-title">{{ offer.job_title }}</h5> -->
         <p><strong>Freelancer:</strong> #{{ offer.freelancer_id }}</p>
         <p><strong>Amount:</strong> ${{ offer.amount }}</p>
         <p><strong>Message:</strong> {{ offer.message }}</p>
         <p><strong>Status:</strong>
-          {% if offer.status == 'pending' %}
+          <!-- {% if offer.status == 'pending' %} -->
             <span class="badge bg-warning text-dark">Pending</span>
-          {% elif offer.status == 'accepted' %}
+          <!-- {% elif offer.status == 'accepted' %} -->
             <span class="badge bg-success">Accepted</span>
-          {% elif offer.status == 'rejected' %}
+          <!-- {% elif offer.status == 'rejected' %} -->
             <span class="badge bg-danger">Rejected</span>
-          {% else %}
+          <!-- {% else %} -->
             <span class="badge bg-secondary">{{ offer.status }}</span>
-          {% endif %}
+          <!-- {% endif %} -->
         </p>
 
-        {% if offer.status == 'pending' %}
+        <!-- {% if offer.status == 'pending' %} -->
         <div class="d-flex gap-2 mt-auto">
-          <form method="POST" action="{{ url_for('client.client_offer_action') }}">
+          <form method="POST" action="{{ url_for('client.client_offer_action') }}" class="w-50">
             <input type="hidden" name="offer_id" value="{{ offer.id }}">
             <input type="hidden" name="action" value="accept">
             <button class="btn btn-success w-100" type="submit">✅ Accept</button>
           </form>
 
-          <form method="POST" action="{{ url_for('client.client_offer_action') }}">
+          <form method="POST" action="{{ url_for('client.client_offer_action') }}" class="w-50">
             <input type="hidden" name="offer_id" value="{{ offer.id }}">
             <input type="hidden" name="action" value="reject">
             <button class="btn btn-danger w-100" type="submit">❌ Reject</button>
           </form>
         </div>
-        {% else %}
+        <!-- {% else %} -->
         <div class="alert alert-light text-center mt-auto mb-0">No further action needed.</div>
-        {% endif %}
+        <!-- {% endif %} -->
       </div>
     </div>
   </div>
-  {% endfor %}
+  <!-- {% endfor %} -->
 </div>
-{% else %}
-  <div class="alert alert-info text-center">No offers have been made on your jobs yet.</div>
-{% endif %}
+<!-- {% else %} -->
+  <div class="alert alert-info text-center col-10 mx-auto">No offers have been made on your jobs yet.</div>
+<!-- {% endif %} -->
 
-{% endblock %}
+<!-- {% endblock %} -->

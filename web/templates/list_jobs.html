@@ -3,17 +3,53 @@
 <head>
     <title>Available Jobs</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
-        .job { border: 1px solid #ccc; padding: 20px; margin-bottom: 15px; border-radius: 5px; }
-        .job h2 { margin: 0 0 10px; }
-        .job p { margin: 5px 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .job {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        .job:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        .job h2 {
+            margin: 0 0 15px;
+            color: #007bff;
+        }
+        .job p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+        .no-jobs {
+            text-align: center;
+            font-size: 18px;
+            padding: 40px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+            color: #856404;
+        }
     </style>
 </head>
 <body>
     <h1>Available Jobs</h1>
-    {% if jobs %}
-        {% for job in jobs %}
+    <!-- {% if jobs %} -->
+        <!-- {% for job in jobs %} -->
             <div class="job">
                 <h2>{{ job.title }}</h2>
                 <p><strong>Description:</strong> {{ job.description }}</p>
@@ -21,9 +57,9 @@
                 <p><strong>Deadline:</strong> {{ job.deadline }}</p>
                 <p><strong>Status:</strong> {{ job.status }}</p>
             </div>
-        {% endfor %}
-    {% else %}
-        <p>No jobs available.</p>
-    {% endif %}
+        <!-- {% endfor %} -->
+    <!-- {% else %} -->
+        <div class="no-jobs">No jobs available.</div>
+    <!-- {% endif %} -->
 </body>
 </html>
