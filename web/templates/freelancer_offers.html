@@ -1,23 +1,25 @@
-{% extends "layout.html" %}
-{% block content %}
-<h2>My Job Offers</h2>
+<link href="/static/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+<!-- {% extends "layout.html" %} -->
+<!-- {% block content %} -->
+<h2 class="mb-4 text-center">My Job Offers</h2>
 <div class="container">
-  {% for offer in offers %}
-    <div class="card mb-3">
+  <!-- {% for offer in offers %} -->
+    <div class="card mb-3 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">{{ offer.job_title }}</h5>
-        <p class="card-text">Proposal: {{ offer.proposal }}</p>
-        <p>Status: 
-          {% if offer.status == 'pending' %}
-            ⏳ Pending
-          {% elif offer.status == 'accepted' %}
-            ✅ Accepted
-          {% elif offer.status == 'rejected' %}
-            ❌ Rejected
-          {% endif %}
+        <p class="card-text"><strong>Proposal:</strong> {{ offer.proposal }}</p>
+        <p><strong>Status:</strong> 
+          <!-- {% if offer.status == 'pending' %} -->
+            <span class="badge bg-warning text-dark">⏳ Pending</span>
+          <!-- {% elif offer.status == 'accepted' %} -->
+            <span class="badge bg-success">✅ Accepted</span>
+          <!-- {% elif offer.status == 'rejected' %} -->
+            <span class="badge bg-danger">❌ Rejected</span>
+          <!-- {% endif %} -->
         </p>
       </div>
     </div>
-  {% endfor %}
+  <!-- {% endfor %} -->
 </div>
-{% endblock %}
+<!-- {% endblock %} -->

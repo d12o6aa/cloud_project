@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Client Jobs</title>
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome, Client</h1>
-    <nav>
-        <a href="/api/auth/client/offers">View Offers</a> |
-        <a href="/api/auth/logout">Logout</a>
-    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4">Welcome, Client</h1>
+        <nav class="mb-4">
+            <a href="/api/auth/client/offers" class="btn btn-primary me-2">View Offers</a>
+            <a href="/api/auth/logout" class="btn btn-danger">Logout</a>
+        </nav>
 
-    <form method="get" class="mb-4 d-flex justify-content-end">
-        <div class="input-group w-auto">
-          <select class="form-select" name="status">
-            <option value="">All</option>
-            <option value="open" {% if status_filter == 'open' %}selected{% endif %}>Open</option>
-            <option value="closed" {% if status_filter == 'closed' %}selected{% endif %}>Closed</option>
-          </select>
-          <button class="btn btn-outline-primary" type="submit">Filter</button>
-        </div>
-      </form>
-      
+        <form method="get" class="mb-4 d-flex justify-content-end">
+            <div class="input-group w-auto">
+                <select class="form-select" name="status">
+                    <option value="">All</option>
+                    <option value="open" {% if status_filter == 'open' %}selected{% endif %}>Open</option>
+                    <option value="closed" {% if status_filter == 'closed' %}selected{% endif %}>Closed</option>
+                </select>
+                <button class="btn btn-outline-primary" type="submit">Filter</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

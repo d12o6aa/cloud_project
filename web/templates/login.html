@@ -1,13 +1,20 @@
-{% extends "base.html" %}
-{% block content %}
-    <h2>Login</h2>
-    <form action="/api/auth/login" method="POST">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
+<link href="/static/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+<!-- {% extends "base.html" %}
+{% block content %} -->
+    <h2 class="text-center my-4">Login</h2>
+    <form action="/api/auth/login" method="POST" style="max-width: 400px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 20px;">
+            <label for="email" style="font-weight: bold; color: #333;">Email:</label><br>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="password" style="font-weight: bold; color: #333;">Password:</label><br>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
 
-        <input type="submit" value="Login">
+        <div>
+            <input type="submit" value="Login" style="width: 100%; padding: 10px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        </div>
     </form>
-{% endblock %}
